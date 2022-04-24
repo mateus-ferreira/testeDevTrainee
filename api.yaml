@@ -1,0 +1,118 @@
+swagger: "2.0"
+info:
+  description: "Documentação do Teste para Desenvolvedor Full Stack Trainee"
+  version: "1.0.0"
+  title: "Teste DevOZ"
+  contact:
+    email: "sfmateus99@gmail.com"
+schemes:
+- "http"
+paths:
+  /user:
+    post:
+      tags:
+      - "user"
+      summary: "Cria um usuário"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        "201":
+          description: "Usuário criado"
+        "400":
+          description: "Dados de cadastro incorretos"
+    get:
+      tags:
+      - "user"
+      summary: "Apresenta todos os usuários do banco"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/User"
+        "500":
+          description: "Internal Server Error"
+  /user/{nome}:
+    get:
+      tags:
+      - "user"
+      summary: "Busca um usuário com base no nome"
+      description: "Nome do usuário"
+      operationId: "getUserByName"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "nome"
+        in: "path"
+        description: "Referente ao nome do usuário cadastrado"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/User"
+        "404":
+          description: "Usuário não encontrado"
+    put:
+      tags:
+      - "user"
+      summary: "Atualizar usuário"
+      operationId: "updateUser"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "nome"
+        in: "path"
+        description: "Referente ao nome do usuário cadastrado"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Updated user object"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        "200":
+          description: "Usuário alterado com sucesso"
+          schema:
+            $ref: "#/definitions/User"
+        "404":
+          description: "Usuário não encontrado"
+    delete:
+      tags:
+      - "user"
+      summary: "Exclui um usuário"
+      operationId: "deleteUser"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "nome"
+        in: "path"
+        description: "Referente ao nome do usuário cadastrado"
+        required: true
+        type: "string"
+      responses:
+        "204":
+          description: "Usuário deletado com sucesso"
+        "404":
+          description: "Usuário não encontrado"
+definitions:
+  User:
+    type: "object"
+    properties:
+      nome:
+        type: "string"
+      email:
+        type: "string"
+      idade:
+        type: "integer"
